@@ -78,14 +78,17 @@ namespace TelekomunikacjaZad2
             createDictionary(root.Right, str + "1");
         }
 
-        public void generateDictionary()
+        public string generateDictionary()
         {
+            dictionaryList.Clear();
             createDictionary(GenerateTree(), "");
             dictionaryList.Sort(new CompareHuffmanDictionary());
+            string str = string.Empty;
             for (int i = 0 ; i<dictionaryList.Count ; i++)
             {
-                Console.WriteLine(dictionaryList[i].Sign + ": " + dictionaryList[i].Code);
+                str += (dictionaryList[i].Sign + ": " + dictionaryList[i].Code + "\n");
             }
+            return str;
         }
 
         public string getHuffmanString(string text, List<HuffmanDictionary> dictionary)

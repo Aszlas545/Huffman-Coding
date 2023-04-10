@@ -12,6 +12,7 @@ namespace TelekomunikacjaZad2
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Form1 form = new Form1();
+            form.Text = "Telekomunikacja Zadanie 3 Pawe³ Stus, Andrzej Szlaski";
             Application.Run(form);
         }
     }

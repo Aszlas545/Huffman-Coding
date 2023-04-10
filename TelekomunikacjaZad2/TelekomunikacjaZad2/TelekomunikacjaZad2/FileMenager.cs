@@ -9,17 +9,12 @@ namespace Telekomunikacja1
 {
     internal class FileMenager
     {
-        public byte[] readFile(string path)
-        {
-            byte[] bytes = File.ReadAllBytes(path);
-            return bytes;
-        }
+        public byte[] readBytes(string path) { return File.ReadAllBytes(path); }
 
-        public void saveFile(byte[] data, string filePath)
-           => File.WriteAllBytes(filePath, data);
+        public void saveBytes(byte[] data, string filePath) => File.WriteAllBytes(filePath, data);
 
-        public string readText(string filePath) 
-            => File.ReadAllText(filePath);
+        public string readText(string filePath) => File.ReadAllText(filePath);
 
+        public void saveText(string data, string filePath) { File.WriteAllText(filePath, data); }
     }
 }
