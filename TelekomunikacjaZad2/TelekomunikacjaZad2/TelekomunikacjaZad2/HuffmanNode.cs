@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TelekomunikacjaZad2
+﻿namespace TelekomunikacjaZad2
 {
     internal class HuffmanNode
     {
         private HuffmanNode? left, right;
         private int frequency;
         private char sign;
+
+        public HuffmanNode()
+        {
+        }
 
         public HuffmanNode(int frequency, char sign)
         {

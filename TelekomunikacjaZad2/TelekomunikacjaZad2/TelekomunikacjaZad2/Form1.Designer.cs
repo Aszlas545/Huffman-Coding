@@ -53,8 +53,8 @@ namespace TelekomunikacjaZad2
             IPAddr2 = new TextBox();
             Port1 = new TextBox();
             Port2 = new TextBox();
-            StopTransferButton = new Button();
-            TreeButton = new Button();
+            RecieveTreeButton = new Button();
+            SendTreeButton = new Button();
             SuspendLayout();
             // 
             // ReadButton
@@ -244,7 +244,6 @@ namespace TelekomunikacjaZad2
             IPAddr2.ReadOnly = true;
             IPAddr2.Size = new Size(210, 23);
             IPAddr2.TabIndex = 18;
-            IPAddr2.Text = GetLocalIPAddress();
             // 
             // Port1
             // 
@@ -262,28 +261,28 @@ namespace TelekomunikacjaZad2
             Port2.Name = "Port2";
             Port2.Size = new Size(210, 23);
             Port2.TabIndex = 20;
-            Port2.Text = Convert.ToString(FreeTcpPort());
             // 
-            // StopTransferButton
+            // RecieveTreeButton
             // 
-            StopTransferButton.BackColor = SystemColors.ActiveCaption;
-            StopTransferButton.Location = new Point(977, 152);
-            StopTransferButton.Name = "StopTransferButton";
-            StopTransferButton.Size = new Size(210, 23);
-            StopTransferButton.TabIndex = 21;
-            StopTransferButton.Text = "Przerwij transmisje";
-            StopTransferButton.UseVisualStyleBackColor = false;
-            StopTransferButton.Click += StopTransferButton_Click;
+            RecieveTreeButton.BackColor = SystemColors.ActiveCaption;
+            RecieveTreeButton.Location = new Point(977, 152);
+            RecieveTreeButton.Name = "RecieveTreeButton";
+            RecieveTreeButton.Size = new Size(210, 80);
+            RecieveTreeButton.TabIndex = 22;
+            RecieveTreeButton.Text = "Odbierz drzewo";
+            RecieveTreeButton.UseVisualStyleBackColor = false;
+            RecieveTreeButton.Click += RecieveTreeButton_Click;
             // 
-            // TreeButton
+            // SendTreeButton
             // 
-            TreeButton.BackColor = SystemColors.ActiveCaption;
-            TreeButton.Location = new Point(977, 180);
-            TreeButton.Name = "TreeButton";
-            TreeButton.Size = new Size(210, 52);
-            TreeButton.TabIndex = 22;
-            TreeButton.Text = "Odbierz drzewo";
-            TreeButton.UseVisualStyleBackColor = false;
+            SendTreeButton.BackColor = SystemColors.ActiveCaption;
+            SendTreeButton.Location = new Point(228, 151);
+            SendTreeButton.Name = "SendTreeButton";
+            SendTreeButton.Size = new Size(210, 80);
+            SendTreeButton.TabIndex = 23;
+            SendTreeButton.Text = "Wyślij drzewo";
+            SendTreeButton.UseVisualStyleBackColor = false;
+            SendTreeButton.Click += SendTreeButton_Click;
             // 
             // Form1
             // 
@@ -291,8 +290,8 @@ namespace TelekomunikacjaZad2
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Info;
             ClientSize = new Size(1427, 849);
-            Controls.Add(TreeButton);
-            Controls.Add(StopTransferButton);
+            Controls.Add(SendTreeButton);
+            Controls.Add(RecieveTreeButton);
             Controls.Add(Port2);
             Controls.Add(Port1);
             Controls.Add(IPAddr2);
@@ -319,27 +318,6 @@ namespace TelekomunikacjaZad2
             PerformLayout();
         }
 
-        private static string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
-        }
-        static int FreeTcpPort()
-        {
-            TcpListener l = new TcpListener(IPAddress.Loopback, 0);
-            l.Start();
-            int port = ((IPEndPoint)l.LocalEndpoint).Port;
-            l.Stop();
-            return port;
-        }
-
         #endregion
         private Button ReadButton;
         private Button SendButton;
@@ -362,7 +340,7 @@ namespace TelekomunikacjaZad2
         private TextBox IPAddr2;
         private TextBox Port1;
         private TextBox Port2;
-        private Button StopTransferButton;
-        private Button TreeButton;
+        private Button RecieveTreeButton;
+        private Button SendTreeButton;
     }
 }

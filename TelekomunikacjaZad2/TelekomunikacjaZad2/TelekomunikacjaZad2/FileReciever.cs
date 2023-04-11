@@ -11,14 +11,10 @@ namespace TelekomunikacjaZad2
 {
     internal class FileReciever
     {
-        bool stopCommand = new bool();
         FileEncoder fileEncoder = new FileEncoder();
-
-        public bool StopCommand { get => stopCommand; set => stopCommand = value; }
 
         public string recieveMessage(int port)
         {
-            stopCommand = false;
             TcpListener listener = new TcpListener(IPAddress.Any, port);
             listener.Start();
             TcpClient client = listener.AcceptTcpClient();
@@ -29,7 +25,7 @@ namespace TelekomunikacjaZad2
             string Encodedmessage = string.Empty;
             try
             {
-                byte[] buffer = new byte[256];
+                byte[] buffer = new byte[1024];
                 stream.Read(buffer, 0, buffer.Length);
                 int recieved = 0;
                 foreach (byte b in buffer)
@@ -49,6 +45,11 @@ namespace TelekomunikacjaZad2
                 {
                     streamWriter.WriteLine("Dostałem wiadomość");
                     streamWriter.Flush();
+                    streamWriter.Close();
+                    streamReader.Close();
+                    stream.Close();
+                    client.Close();
+                    listener.Stop();
                     return Encodedmessage;
                 }
             }
@@ -65,6 +66,61 @@ namespace TelekomunikacjaZad2
             client.Close();
             listener.Stop();
             return Encodedmessage;
+        }
+
+        public HuffmanNode recieveTree(int port)
+        {
+            string stringOfFrequencies = string.Empty;
+            string stringOfSigns = string.Empty;
+
+            TcpListener listener = new TcpListener(IPAddress.Any, port);
+            listener.Start();
+            TcpClient client = listener.AcceptTcpClient();
+            NetworkStream stream = client.GetStream();
+            StreamReader streamReader = new StreamReader(stream);
+            StreamWriter streamWriter = new StreamWriter(stream);
+            string message = string.Empty;
+            try
+            {
+                byte[] buffer = new byte[1024];
+                stream.Read(buffer, 0, buffer.Length);
+
+                stream.Flush();
+                int recieved = 0;
+                foreach (byte b in buffer)
+                {
+                    if (b != 0)
+                    {
+                        recieved++;
+                    }
+                }
+                byte[] bufferReduced = new byte[recieved];
+                for (int i = 0; i < recieved; i++)
+                {
+                    bufferReduced[i] = buffer[i];
+                }
+                message = Encoding.ASCII.GetString(bufferReduced);
+            }
+            catch (Exception ex)
+            {
+                streamWriter.WriteLine("Wystąpił wyjątek. Coś poszło nie tak nie otrzymano pliku");
+                streamWriter.Flush();
+            }
+            stringOfSigns = message.Substring(0, message.IndexOf('*'));
+            stringOfFrequencies = message.Substring(message.IndexOf('*')+1);
+            streamWriter.Flush();
+            stream.Flush();
+            streamWriter.Close();
+            streamReader.Close();
+            stream.Close();
+            client.Close();
+            listener.Stop();
+            Console.WriteLine(stringOfSigns);
+            Console.WriteLine(stringOfFrequencies);
+            TreeSerializer serializer = new TreeSerializer();
+            serializer.makeLists(stringOfSigns, stringOfFrequencies);
+            HuffmanNode node = serializer.deserialize();
+            return node;
         }
     }
 }

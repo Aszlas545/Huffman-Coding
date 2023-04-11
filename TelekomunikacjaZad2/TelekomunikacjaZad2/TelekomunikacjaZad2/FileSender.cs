@@ -10,19 +10,21 @@ namespace TelekomunikacjaZad2
 {
     internal class FileSender
     {
-        public string send(string ip, int port, byte[] file)
+        public string sendMessage(string ip, int port, byte[] file)
         {
             string response = string.Empty;
             try
             {
                 TcpClient tcpClient = new TcpClient(ip, port);
-
+                
                 NetworkStream stream = tcpClient.GetStream();
                 stream.Write(file, 0, file.Length);
-
                 StreamReader streamReader = new StreamReader(stream);
                 response = streamReader.ReadLine();
-
+                while (response == string.Empty)
+                {
+                    response = streamReader.ReadLine();
+                }
                 streamReader.Close();
                 stream.Close();
                 tcpClient.Close();

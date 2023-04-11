@@ -67,7 +67,7 @@ namespace TelekomunikacjaZad2
             return huffmanList[0];
         }
 
-        private void createDictionary(HuffmanNode root, string str)
+        public void createDictionary(HuffmanNode root, string str)
         {
             if (root == null)
                 return;
@@ -100,6 +100,19 @@ namespace TelekomunikacjaZad2
                 str += dictionary.Where(f => f.Sign == text[i]).First().Code;
             }
 
+            return str;
+        }
+
+        public string generateDictionary2(HuffmanNode root)
+        {
+            dictionaryList.Clear();
+            createDictionary(root, "");
+            dictionaryList.Sort(new CompareHuffmanDictionary());
+            string str = string.Empty;
+            for (int i = 0; i < dictionaryList.Count; i++)
+            {
+                str += (dictionaryList[i].Sign + ": " + dictionaryList[i].Code + "\n");
+            }
             return str;
         }
     }
