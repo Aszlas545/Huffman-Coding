@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TelekomunikacjaZad2
 {
-    internal class CompareHuffmanNodes : IComparer<HuffmanNode>
+    internal class CompareHuffmanNodes : IComparer<HuffmanNode> //Klasa sortująca węzły drzewa huffmana aby ustawić je malejąco częstotliwością
     {
         public int Compare(HuffmanNode x, HuffmanNode y) => x.Frequency.CompareTo(y.Frequency);
     }

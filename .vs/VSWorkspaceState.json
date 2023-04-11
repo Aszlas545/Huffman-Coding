@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\TelekomunikacjaZad2",
+    "\\TelekomunikacjaZad2\\TelekomunikacjaZad2",
+    "\\TelekomunikacjaZad2\\TelekomunikacjaZad2\\TelekomunikacjaZad2"
   ],
-  "SelectedNode": "\\TelekomunikacjaZad2.sln",
+  "SelectedNode": "\\TelekomunikacjaZad2\\TelekomunikacjaZad2\\TelekomunikacjaZad2\\TelekomunikacjaZad2.csproj",
   "PreviewInSolutionExplorer": false
 }

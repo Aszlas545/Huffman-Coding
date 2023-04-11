@@ -1,6 +1,6 @@
 ﻿namespace TelekomunikacjaZad2
 {
-    internal class HuffmanNode
+    internal class HuffmanNode                  //Klasa jest przedstawieniem węzła w drzewie binarnym huffmana
     {
         private HuffmanNode? left, right;
         private int frequency;

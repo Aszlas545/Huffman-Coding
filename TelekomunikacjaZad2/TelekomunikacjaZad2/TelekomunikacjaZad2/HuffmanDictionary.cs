@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TelekomunikacjaZad2
 {
-    internal class HuffmanDictionary
+    internal class HuffmanDictionary    //Klasa przedstawia znak z jego przedstawieniem w postaci 0 i 1 z drzewa
     {
         private char sign;
         private string code;
